@@ -2,7 +2,7 @@
     "name": "dashifen/wp-templates",
     "description": "A series of objects that encapsulate behaviors for WordPress templates.",
     "type": "project",
-    "license": "The Hippocratic License",
+    "license": "MIT",
     "authors": [
         {
             "name": "David Dashifen Kees",
