@@ -8,6 +8,14 @@ use RecursiveDirectoryIterator;
 use Dashifen\Repository\Repository;
 use Dashifen\Repository\RepositoryException;
 
+/**
+ * Class AbstractTemplate
+ *
+ * @property-read string $file
+ * @property-read array  $context
+ *
+ * @package Dashifen\WPTemplates
+ */
 abstract class AbstractTemplate extends Repository implements TemplateInterface
 {
     /**
@@ -156,11 +164,11 @@ abstract class AbstractTemplate extends Repository implements TemplateInterface
     public function setContext (?array $context, bool $replace = false): void
     {
         if ($context === null) {
-    
+            
             // if we receive null we do nothing.  this is mostly useful to
             // allow implementations of the render method to pass a null here
             // without consequences.
-    
+            
             return;
         }
         
