@@ -24,12 +24,12 @@ abstract class AbstractTemplate extends Repository implements TemplateInterface
     /**
      * @var string
      */
-    protected $file;
+    protected $file = "";
     
     /**
      * @var array
      */
-    protected $context;
+    protected $context = [];
     
     /**
      * AbstractTemplate constructor.
@@ -164,7 +164,7 @@ abstract class AbstractTemplate extends Repository implements TemplateInterface
             /** @var SplFileInfo $file */
             
             if ($file->isFile() && $file->getFilename() === $filename) {
-                return $file->getPath();
+                return $file->getPath() . '/' . $filename;
             }
         }
         
@@ -195,7 +195,7 @@ abstract class AbstractTemplate extends Repository implements TemplateInterface
         }
         
         $this->context = !$replace
-            ? array_merge($this->context, $context)
+            ? array_merge_recursive($this->context, $context)
             : $context;
     }
     
@@ -286,17 +286,14 @@ abstract class AbstractTemplate extends Repository implements TemplateInterface
         // accessed:  2018-07-09
         
         if (!function_exists('write_log')) {
-            function write_log($log)
-            {
-                if (is_array($log) || is_object($log)) {
-                    error_log(print_r($log, true));
-                } else {
-                    error_log($log);
-                }
+            if (is_array($log) || is_object($log)) {
+                error_log(print_r($log, true));
+            } else {
+                error_log($log);
             }
+        } else {
+            write_log($data);
         }
-        
-        write_log($data);
     }
     
     /**
