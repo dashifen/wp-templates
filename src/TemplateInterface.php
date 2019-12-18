@@ -2,6 +2,8 @@
 
 namespace Dashifen\WPTemplates;
 
+use Throwable;
+
 interface TemplateInterface
 {
     /**
@@ -47,4 +49,52 @@ interface TemplateInterface
      * @return mixed
      */
     public function getContextValue (string $index);
+    
+    /**
+     * isDebug
+     *
+     * Returns true when WP_DEBUG exists and is set.
+     *
+     * @return bool
+     */
+    public static function isDebug(): bool;
+    
+    /**
+     * debug
+     *
+     * Given stuff, print information about it and then die() if the $die flag is
+     * set.  Typically, this only works when the isDebug() method returns true,
+     * but the $force parameter will override this behavior.
+     *
+     * @param mixed $stuff
+     * @param bool  $die
+     * @param bool  $force
+     *
+     * @return void
+     */
+    public static function debug($stuff, bool $die = false, bool $force = false): void;
+    
+    /**
+     * writeLog
+     *
+     * Calling this method should write $data to the WordPress debug.log file.
+     *
+     * @param mixed $data
+     *
+     * @return void
+     */
+    public static function writeLog($data): void;
+    
+    /**
+     * catcher
+     *
+     * This serves as a general-purpose Exception handler which displays
+     * the caught object when we're debugging and writes it to the log when
+     * we're not.
+     *
+     * @param Throwable $thrown
+     *
+     * @return void
+     */
+    public static function catcher(Throwable $thrown): void;
 }
