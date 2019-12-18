@@ -4,8 +4,6 @@ namespace Dashifen\WPTemplates;
 
 use Throwable;
 use SplFileInfo;
-use RecursiveIteratorIterator;
-use RecursiveDirectoryIterator;
 use Dashifen\Repository\Repository;
 use Dashifen\Repository\RepositoryException;
 
@@ -127,8 +125,9 @@ abstract class AbstractTemplate extends Repository implements TemplateInterface
         // stylesheet directory that have the specified extension.  if we can
         // find the requested one in that list, we're good to go.
         
+        $fileLength = strlen($file);
         foreach ($filepaths as $filepath) {
-            if (strpos($filepath, $file) !== 0) {
+            if (substr($filepath, -$fileLength) === $file) {
                 $this->file = $file;
             }
         }
@@ -153,17 +152,49 @@ abstract class AbstractTemplate extends Repository implements TemplateInterface
      */
     private function getThemeFilesOfType (string $directory, string $extension): array
     {
-        $directoryIterator = new RecursiveDirectoryIterator($directory);
-        $templateFileIterator = new TemplateFileIterator($directoryIterator, $extension);
-        $extensionMatches = new RecursiveIteratorIterator($templateFileIterator);
-        
-        foreach ($extensionMatches as $match) {
-            /** @var SplFileInfo $match */
-            
-            $files[] = $match->getRealPath();
+        return $this->rGlob($directory . '/*/*.' . $extension);
+    }
+    
+    /**
+     * rGlob
+     *
+     * Recursively calls the glob function to look for files that match the
+     * pattern within this folder and its subdirectories.
+     *
+     * @link https://stackoverflow.com/a/17161106/360838 (accessed: 2019-12-18)
+     *
+     * @param string $pattern
+     *
+     * @return array
+     */
+    private function rGlob (string $pattern): array
+    {
+        $files = glob($pattern);
+        foreach (glob(dirname($pattern) . '/*', GLOB_NOSORT | GLOB_ONLYDIR) as $subdirectory) {
+            if ($this->isAppropriateDirectory($subdirectory)) {
+                $subdirectoryPattern = $subdirectory . '/' . basename($pattern);
+                $subdirectoryFiles = $this->rGlob($subdirectoryPattern);
+                $files = array_merge($files, $subdirectoryFiles);
+            }
         }
         
-        return $files ?? [];
+        return $files;
+    }
+    
+    /**
+     * isAppropriateDirectory
+     *
+     * Returns true if our parameter is neither the vendor nor the node_modules
+     * folder and if it's not within them; otherwise, false.
+     *
+     * @param string $directory
+     *
+     * @return bool
+     */
+    private function isAppropriateDirectory (string $directory): bool
+    {
+        return strpos($directory, '/node_modules/') === false
+            && strpos($directory, '/vendor/') === false;
     }
     
     /**
