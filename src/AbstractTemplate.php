@@ -128,12 +128,17 @@ abstract class AbstractTemplate extends Repository implements TemplateInterface
         $fileLength = strlen($file);
         foreach ($filepaths as $filepath) {
             if (substr($filepath, -$fileLength) === $file) {
+                
+                // the if condition makes sure that the last X characters,
+                // where X is the string length of our $file parameter, matches
+                // the $file parameter itself.  if that's the case, then we've
+                // found our template.  we'll set the property and return to
+                // avoid throwing the exception below.
+                
                 $this->file = $file;
+                return;
             }
         }
-        
-        // if we made it all the way here and didn't find our file, we'll throw
-        // an exception to let the calling scope know we have a problem.
         
         throw new TemplateException('File not found: ' . $file,
             TemplateException::FILE_NOT_FOUND);
@@ -302,15 +307,14 @@ abstract class AbstractTemplate extends Repository implements TemplateInterface
      *
      * Calling this method should write $data to the WordPress debug.log file.
      *
+     * @link https://www.elegantthemes.com/blog/tips-tricks/using-the-wordpress-debug-log (2018-07-09)
+     *
      * @param mixed $data
      *
      * @return void
      */
     public static function writeLog ($data): void
     {
-        // source:  https://www.elegantthemes.com/blog/tips-tricks/using-the-wordpress-debug-log
-        // accessed:  2018-07-09
-        
         if (!function_exists('write_log')) {
             function write_log ($log)
             {
