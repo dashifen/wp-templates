@@ -17,7 +17,7 @@ interface TemplateInterface
      *
      * @return string
      */
-    public function render(bool $debug = false, ?string $file = null, ?array $context = null): string;
+    public function render (bool $debug = false, ?string $file = null, ?array $context = null): string;
     
     /**
      * setContext
@@ -27,12 +27,12 @@ interface TemplateInterface
      * replaces the current value of our context property.  Otherwise, the
      * parameter is merged into it.
      *
-     * @param array $context
-     * @param bool  $replace
+     * @param array|null $context
+     * @param bool       $replace
      *
      * @return mixed
      */
-    public function setContext(array $context, bool $replace = false): void;
+    public function setContext (?array $context, bool $replace = false): void;
     
     /**
      * getContextValue
@@ -46,5 +46,5 @@ interface TemplateInterface
      *
      * @return mixed
      */
-    public function getContextValue(string $index);
+    public function getContextValue (string $index);
 }

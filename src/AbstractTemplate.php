@@ -69,13 +69,22 @@ abstract class AbstractTemplate extends Repository implements TemplateInterface
      *
      * Sets the file property.
      *
-     * @param string $file
+     * @param string|null $file
      *
      * @return void
      * @throws TemplateException
      */
-    public function setFile (string $file): void
+    public function setFile (?string $file): void
     {
+        if ($file === null) {
+            
+            // if we receive null we do nothing.  this is mostly useful to
+            // allow implementations of the render method to pass a null here
+            // without consequences.
+            
+            return;
+        }
+        
         // $file should be an absolute path to a the template file that we're
         // going to render.  if all we get is a filename without a path, then
         // we'll try to find it.  we can tell if it's a filename because it and
@@ -139,13 +148,22 @@ abstract class AbstractTemplate extends Repository implements TemplateInterface
      * is set.  In that case, we simply replace the property with our
      * parameter.
      *
-     * @param array $context
-     * @param bool  $replace
+     * @param array|null $context
+     * @param bool       $replace
      *
      * @return void
      */
-    public function setContext (array $context, bool $replace = false): void
+    public function setContext (?array $context, bool $replace = false): void
     {
+        if ($context === null) {
+    
+            // if we receive null we do nothing.  this is mostly useful to
+            // allow implementations of the render method to pass a null here
+            // without consequences.
+    
+            return;
+        }
+        
         $this->context = !$replace
             ? array_merge($this->context, $context)
             : $context;
