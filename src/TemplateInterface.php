@@ -9,9 +9,25 @@ interface TemplateInterface
     /**
      * render
      *
-     * Renders either a previously set template file and context or can use
-     * the optional parameters here to specify what a file and context at the
-     * time of the call.
+     * Renders either a previously set template file and context or can use the
+     * optional parameters here to specify the a file and context at the time
+     * of the call and displays it on screen.
+     *
+     * @param bool        $debug
+     * @param string|null $file
+     * @param array|null  $context
+     *
+     * @return void
+     */
+    public function render (bool $debug = false, ?string $file = null, ?array $context = null): void;
+    
+    /**
+     * compile
+     *
+     * Compiles either a previously set template file and context or can use
+     * the optional parameters here to specify the file and context at the time
+     * of the call and returns it to the calling scope.
+     *
      *
      * @param bool        $debug
      * @param string|null $file
@@ -19,7 +35,7 @@ interface TemplateInterface
      *
      * @return string
      */
-    public function render (bool $debug = false, ?string $file = null, ?array $context = null): string;
+    public function compile (bool $debug = false, ?string $file = null, ?array $context = null): string;
     
     /**
      * setContext

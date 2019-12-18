@@ -71,9 +71,28 @@ abstract class AbstractTemplate extends Repository implements TemplateInterface
      * @param string|null $file
      * @param array|null  $context
      *
+     * @return void
+     */
+    public function render (bool $debug = false, ?string $file = null, ?array $context = null): void
+    {
+        echo $this->compile($debug, $file, $context);
+    }
+    
+    /**
+     * compile
+     *
+     * Compiles either a previously set template file and context or can use
+     * the optional parameters here to specify the file and context at the time
+     * of the call and returns it to the calling scope.
+     *
+     *
+     * @param bool        $debug
+     * @param string|null $file
+     * @param array|null  $context
+     *
      * @return string
      */
-    abstract public function render (bool $debug = false, ?string $file = null, ?array $context = null): string;
+    abstract public function compile (bool $debug = false, ?string $file = null, ?array $context = null): string;
     
     /**
      * setFile
