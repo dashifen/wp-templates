@@ -15,9 +15,24 @@ interface TemplateInterface
      * @param string|null $file
      * @param array|null  $context
      *
+     * @return string
+     */
+    public function render(bool $debug = false, ?string $file = null, ?array $context = null): string;
+    
+    /**
+     * setContext
+     *
+     * Typically, a setter isn't a part of our interface, but this one has an
+     * additional parameter:  the render flag.  When set, the array parameter
+     * replaces the current value of our context property.  Otherwise, the
+     * parameter is merged into it.
+     *
+     * @param array $context
+     * @param bool  $replace
+     *
      * @return mixed
      */
-    public function render(bool $debug = false, ?string $file = null, ?array $context = null);
+    public function setContext(array $context, bool $replace = false): void;
     
     /**
      * getContextValue

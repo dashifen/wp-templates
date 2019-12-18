@@ -17,7 +17,10 @@
     },
     "minimum-stability": "stable",
     "require": {
-        "dashifen/exception": "1.1.*",
+        "dashifen/repository": "^1",
         "php": ">=7.3"
+    },
+    "scripts": {
+        "post-update-cmd": "composer dumpautoload --optimize"
     }
 }
