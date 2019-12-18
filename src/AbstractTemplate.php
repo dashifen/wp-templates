@@ -9,8 +9,6 @@ use RecursiveDirectoryIterator;
 use Dashifen\Repository\Repository;
 use Dashifen\Repository\RepositoryException;
 
-use function Dashifen\WPHandler\Handlers\write_log;
-
 /**
  * Class AbstractTemplate
  *
@@ -115,60 +113,57 @@ abstract class AbstractTemplate extends Repository implements TemplateInterface
             return;
         }
         
-        // $file should be an absolute path to a the template file that we're
-        // going to render.  if all we get is a filename without a path, then
-        // we'll try to find it.  we can tell if it's a filename because it and
-        // its basename will be the same.  notice that we switch the name from
-        // $file to $path so that we can still use the original parameter when
-        // we need to herein.
+        // if we received a file, then we want to confirm that it exists
+        // somewhere in our theme directory.  to do that, we get our stylesheet
+        // directory and the extension of the file.  then, the glob function
+        // can get us a list of those files in that directory so we can check
+        // for it.
         
-        $path = $file;
-        if ($path === basename($path)) {
-            $path = $this->locateFile($path);
-            
-            if ($path === null) {
-                throw new TemplateException(
-                    'Unable to find ' . $file,
-                    TemplateException::UNABLE_TO_FIND_FILE
-                );
+        $directory = get_stylesheet_directory();
+        $extension = pathinfo($file, PATHINFO_EXTENSION);
+        $filepaths = $this->getThemeFilesOfType($directory, $extension);
+        
+        // now we have an array of absolute filenames for the files in our
+        // stylesheet directory that have the specified extension.  if we can
+        // find the requested one in that list, we're good to go.
+        
+        foreach ($filepaths as $filepath) {
+            if (strpos($filepath, $file) !== 0) {
+                $this->file = $file;
             }
         }
         
-        if (!is_file($path)) {
-            throw new TemplateException(
-                'File not found: ' . basename($path),
-                TemplateException::FILE_NOT_FOUND
-            );
-        }
+        // if we made it all the way here and didn't find our file, we'll throw
+        // an exception to let the calling scope know we have a problem.
         
-        $this->file = $path;
+        throw new TemplateException('File not found: ' . $file,
+            TemplateException::FILE_NOT_FOUND);
     }
     
     /**
-     * locateFile
+     * getThemeFilesOfType
      *
-     * Given a file, looks for it within the stylesheet directory and its
-     * sub-directories.  If found, returns the path to it; otherwise returns
-     * null.
+     * Given a directory and file extension, return all files of that type in
+     * the directory and it's subdirectories.
      *
-     * @param string $filename
+     * @param string $directory
+     * @param string $extension
      *
-     * @return string|null
+     * @return SplFileInfo[]
      */
-    private function locateFile (string $filename): ?string
+    private function getThemeFilesOfType (string $directory, string $extension): array
     {
-        $dir = get_stylesheet_directory();
-        $dir_iterator = new RecursiveDirectoryIterator($dir);
-        $iterator = new RecursiveIteratorIterator($dir_iterator);
-        foreach ($iterator as $file) {
-            /** @var SplFileInfo $file */
+        $directoryIterator = new RecursiveDirectoryIterator($directory);
+        $templateFileIterator = new TemplateFileIterator($directoryIterator, $extension);
+        $extensionMatches = new RecursiveIteratorIterator($templateFileIterator);
+        
+        foreach ($extensionMatches as $match) {
+            /** @var SplFileInfo $match */
             
-            if ($file->isFile() && $file->getFilename() === $filename) {
-                return $file->getPath() . '/' . $filename;
-            }
+            $files[] = $match->getRealPath();
         }
         
-        return null;
+        return $files ?? [];
     }
     
     /**
@@ -239,7 +234,7 @@ abstract class AbstractTemplate extends Repository implements TemplateInterface
      *
      * @return bool
      */
-    public static function isDebug(): bool
+    public static function isDebug (): bool
     {
         return defined('WP_DEBUG') && WP_DEBUG;
     }
@@ -257,7 +252,7 @@ abstract class AbstractTemplate extends Repository implements TemplateInterface
      *
      * @return void
      */
-    public static function debug($stuff, bool $die = false, bool $force = false): void
+    public static function debug ($stuff, bool $die = false, bool $force = false): void
     {
         if (self::isDebug() || $force) {
             $message = '<pre>' . print_r($stuff, true) . '</pre>';
@@ -280,20 +275,23 @@ abstract class AbstractTemplate extends Repository implements TemplateInterface
      *
      * @return void
      */
-    public static function writeLog($data): void
+    public static function writeLog ($data): void
     {
         // source:  https://www.elegantthemes.com/blog/tips-tricks/using-the-wordpress-debug-log
         // accessed:  2018-07-09
         
         if (!function_exists('write_log')) {
-            if (is_array($log) || is_object($log)) {
-                error_log(print_r($log, true));
-            } else {
-                error_log($log);
+            function write_log ($log)
+            {
+                if (is_array($log) || is_object($log)) {
+                    error_log(print_r($log, true));
+                } else {
+                    error_log($log);
+                }
             }
-        } else {
-            write_log($data);
         }
+        
+        write_log($data);
     }
     
     /**
@@ -307,7 +305,7 @@ abstract class AbstractTemplate extends Repository implements TemplateInterface
      *
      * @return void
      */
-    public static function catcher(Throwable $thrown): void
+    public static function catcher (Throwable $thrown): void
     {
         self::isDebug() ? self::debug($thrown, true) : self::writeLog($thrown);
     }
