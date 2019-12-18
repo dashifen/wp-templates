@@ -165,7 +165,7 @@ abstract class AbstractTemplate extends Repository implements TemplateInterface
         }
         
         $this->context = !$replace
-            ? array_merge($this->context, $context)
+            ? array_merge_recursive($this->context, $context)
             : $context;
     }
     
