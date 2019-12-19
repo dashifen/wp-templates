@@ -79,8 +79,7 @@ abstract class AbstractTemplate extends Repository implements TemplateInterface
      *
      * Compiles either a previously set template file and context or can use
      * the optional parameters here to specify the file and context at the time
-     * of the call and returns it to the calling scope.
-     *
+     * of the call and returns it to the calling scope.     *
      *
      * @param bool        $debug
      * @param string|null $file
