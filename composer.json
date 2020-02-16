@@ -17,7 +17,7 @@
     },
     "minimum-stability": "stable",
     "require": {
-        "dashifen/repository": "^1",
+        "dashifen/repository": "^2",
         "php": ">=7.3"
     },
     "scripts": {
