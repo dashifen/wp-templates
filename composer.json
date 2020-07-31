@@ -1,6 +1,7 @@
 {
     "name": "dashifen/wp-templates",
     "description": "A series of objects that encapsulate behaviors for WordPress templates.",
+    "minimum-stability": "stable",
     "type": "project",
     "license": "MIT",
     "authors": [
@@ -15,12 +16,12 @@
             "Dashifen\\WPTemplates\\": "src"
         }
     },
-    "minimum-stability": "stable",
-    "require": {
-        "dashifen/repository": "^2",
-        "php": ">=7.3"
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
     },
-    "scripts": {
-        "post-update-cmd": "composer dumpautoload --optimize"
+    "require": {
+        "php": ">=7.4",
+        "dashifen/repository": "^3"
     }
 }

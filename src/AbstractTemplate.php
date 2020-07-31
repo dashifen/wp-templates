@@ -17,15 +17,8 @@ use Dashifen\Repository\RepositoryException;
  */
 abstract class AbstractTemplate extends Repository implements TemplateInterface
 {
-    /**
-     * @var string
-     */
-    protected $file = "";
-    
-    /**
-     * @var array
-     */
-    protected $context = [];
+    protected string $file = "";
+    protected array $context = [];
     
     /**
      * AbstractTemplate constructor.
@@ -118,14 +111,14 @@ abstract class AbstractTemplate extends Repository implements TemplateInterface
         
         $directory = get_stylesheet_directory();
         $extension = pathinfo($file, PATHINFO_EXTENSION);
-        $filepaths = $this->getThemeFilesOfType($directory, $extension);
+        $filePaths = $this->getThemeFilesOfType($directory, $extension);
         
         // now we have an array of absolute filenames for the files in our
         // stylesheet directory that have the specified extension.  if we can
         // find the requested one in that list, we're good to go.
         
         $fileLength = strlen($file);
-        foreach ($filepaths as $filepath) {
+        foreach ($filePaths as $filepath) {
             if (substr($filepath, -$fileLength) === $file) {
                 
                 // the if condition makes sure that the last X characters,
