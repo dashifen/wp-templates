@@ -4,8 +4,42 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b5999b0783da0a89b700a54eee7ddfcf",
+    "content-hash": "6dbd5f270ea1be3138029992c098e2ba",
     "packages": [
+        {
+            "name": "dashifen/debugging",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dashifen/debugging.git",
+                "reference": "2443dbf994351e94ffa36ea992b1a5b8b87250e8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dashifen/debugging/zipball/2443dbf994351e94ffa36ea992b1a5b8b87250e8",
+                "reference": "2443dbf994351e94ffa36ea992b1a5b8b87250e8",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Dashifen\\Debugging\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Dashifen Kees",
+                    "email": "dashifen@dashifen.com",
+                    "role": "developer"
+                }
+            ],
+            "description": "A PHP Trait that defines static methods used for on-screen debugging.",
+            "time": "2020-08-02T14:27:05+00:00"
+        },
         {
             "name": "dashifen/exception",
             "version": "1.2.0",
@@ -82,6 +116,43 @@
             ],
             "description": "An object with read-only protected properties from which other objects can be extened.",
             "time": "2020-07-29T15:21:59+00:00"
+        },
+        {
+            "name": "dashifen/wp-debugging",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dashifen/wp-debugging.git",
+                "reference": "ace122de19a558bf2596d809986b70359a4d7026"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dashifen/wp-debugging/zipball/ace122de19a558bf2596d809986b70359a4d7026",
+                "reference": "ace122de19a558bf2596d809986b70359a4d7026",
+                "shasum": ""
+            },
+            "require": {
+                "dashifen/debugging": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Dashifen\\WPDebugging\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "David Dashifen Kees",
+                    "email": "dashifen@dashifen.com",
+                    "role": "developer"
+                }
+            ],
+            "description": "A PHP trait that can be used by other objects for on-screen debugging within a WordPress environment.",
+            "time": "2020-08-02T15:02:40+00:00"
         }
     ],
     "packages-dev": [],
