@@ -19,26 +19,21 @@ abstract class AbstractTemplate extends Repository implements TemplateInterface
 {
   use WPDebuggingTrait;
   
-  protected string $file = "";
-  protected array $context = [];
+  protected ?string $file = null;
+  protected ?array $context = null;
   
   /**
    * AbstractTemplate constructor.
    *
-   * @param string $file
-   * @param array  $context
+   * @param string|null $file
+   * @param array|null  $context
    *
    * @throws TemplateException
    */
-  public function __construct(string $file = "", array $context = [])
+  public function __construct(?string $file = null, ?array $context = null)
   {
     try {
-      parent::__construct(
-        [
-          "file"    => $file,
-          "context" => $context,
-        ]
-      );
+      parent::__construct(["file" => $file, "context" => $context]);
     } catch (RepositoryException $exception) {
       
       // we don't want the scope using this object to have to worry about
