@@ -148,7 +148,7 @@ abstract class AbstractTemplate extends Repository implements TemplateInterface
    *
    * @return SplFileInfo[]
    */
-  private function getThemeFilesOfType(string $directory, string $extension): array
+  protected function getThemeFilesOfType(string $directory, string $extension): array
   {
     return $this->rGlob($directory . '/*/*.' . $extension);
   }
