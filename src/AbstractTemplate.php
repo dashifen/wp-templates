@@ -19,7 +19,7 @@ abstract class AbstractTemplate extends Repository implements TemplateInterface
   use WPDebuggingTrait;
   
   protected ?string $file = null;
-  protected ?array $context = null;
+  protected array $context = [];
   
   /**
    * AbstractTemplate constructor.
