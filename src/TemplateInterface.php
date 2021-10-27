@@ -41,7 +41,7 @@ interface TemplateInterface
    * setContext
    *
    * Typically, a setter isn't a part of our interface, but this one has an
-   * additional parameter:  the render flag.  When set, the array parameter
+   * additional parameter:  the replace flag.  When set, the array parameter
    * replaces the current value of our context property.  Otherwise, the
    * parameter is merged into it.
    *
