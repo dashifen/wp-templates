@@ -4,8 +4,49 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6dbd5f270ea1be3138029992c098e2ba",
+    "content-hash": "620fc43bae153bcb30e2f809dcf24b44",
     "packages": [
+        {
+            "name": "dashifen/case-changing-trait",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dashifen/case-changing-trait.git",
+                "reference": "950e54a87a77f0fc960ad4c2d3e43e4cde04e144"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dashifen/case-changing-trait/zipball/950e54a87a77f0fc960ad4c2d3e43e4cde04e144",
+                "reference": "950e54a87a77f0fc960ad4c2d3e43e4cde04e144",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Dashifen\\CaseChangingTrait\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Dashifen Kees",
+                    "email": "dashifen@dashifen.com",
+                    "role": "developer"
+                }
+            ],
+            "description": "A PHP trait that converts between common programming character cases.",
+            "support": {
+                "issues": "https://github.com/dashifen/case-changing-trait/issues",
+                "source": "https://github.com/dashifen/case-changing-trait/tree/1.0.1"
+            },
+            "time": "2021-04-07T12:54:46+00:00"
+        },
         {
             "name": "dashifen/debugging",
             "version": "1.0.1",
@@ -88,22 +129,22 @@
         },
         {
             "name": "dashifen/repository",
-            "version": "3.0.0",
+            "version": "4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dashifen/repository.git",
-                "reference": "83ce68039cc5c0cae1c35c3da80d9d3e23b57d37"
+                "reference": "032cde0eaf6283377816cae340c84b299d6de779"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dashifen/repository/zipball/83ce68039cc5c0cae1c35c3da80d9d3e23b57d37",
-                "reference": "83ce68039cc5c0cae1c35c3da80d9d3e23b57d37",
+                "url": "https://api.github.com/repos/dashifen/repository/zipball/032cde0eaf6283377816cae340c84b299d6de779",
+                "reference": "032cde0eaf6283377816cae340c84b299d6de779",
                 "shasum": ""
             },
             "require": {
+                "dashifen/case-changing-trait": "^1",
                 "dashifen/exception": "^1",
-                "ext-json": "*",
-                "php": ">=7.4"
+                "php": ">=8.2"
             },
             "type": "library",
             "autoload": {
@@ -113,7 +154,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "WTFPL"
+                "MIT"
             ],
             "authors": [
                 {
@@ -122,12 +163,12 @@
                     "role": "developer"
                 }
             ],
-            "description": "An object with read-only protected properties from which other objects can be extened.",
+            "description": "An object with read-only protected properties from which other objects can be extended.",
             "support": {
                 "issues": "https://github.com/dashifen/repository/issues",
-                "source": "https://github.com/dashifen/repository/tree/master"
+                "source": "https://github.com/dashifen/repository/tree/4.0.0"
             },
-            "time": "2020-07-29T15:21:59+00:00"
+            "time": "2023-09-05T17:51:39+00:00"
         },
         {
             "name": "dashifen/wp-debugging",
@@ -178,8 +219,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.4"
+        "php": ">8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.6.0"
 }

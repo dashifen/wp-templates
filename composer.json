@@ -21,8 +21,8 @@
         "sort-packages": true
     },
     "require": {
-        "php": ">=7.4",
-        "dashifen/repository": "^3",
+        "php": ">8.0",
+        "dashifen/repository": "^4.0",
         "dashifen/wp-debugging": "^1.0"
     }
 }
