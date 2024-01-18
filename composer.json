@@ -22,7 +22,7 @@
     },
     "require": {
         "php": ">8",
-        "dashifen/repository": "^4 || ^5",
+        "dashifen/repository": "^4",
         "dashifen/wp-debugging": "^1"
     }
 }
